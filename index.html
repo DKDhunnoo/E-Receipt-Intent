@@ -7,5 +7,13 @@
 </head> -->
 
 <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const data = urlParams.get('data');
+
+  // Construct the new URL with the data
+  const redirectURL = `intent://com.example.e_receipt_app?data=${data}#Intent;scheme=https;package=com.example.e_receipt_app;end`;
+
+  // Redirect the user
+  window.location.replace(redirectURL);
   window.location.replace("intent://com.example.e_receipt_app#Intent;scheme=https;package=com.example.e_receipt_app;end");
 </script>
