@@ -1,20 +1,11 @@
-<!-- <a href="intent://com.example.e_receipt_app#Intent;scheme=https;package=com.example.e_receipt_app;end">Tap me to launch
-  directly into the Android app</a>
-
-<head>
-  <meta http-equiv='refresh'
-    content='0; URL=intent://com.example.e_receipt_app#Intent;scheme=https;package=com.example.e_receipt_app;end'>
-</head> -->
-
 <script>
   const urlParams = new URLSearchParams(window.location.search);
   const fileName = urlParams.get('fileName');
-  const data = urlParams.get('data');
+  const url = "https://storage.googleapis.com/e-receipt-b118e.appspot.com/";
 
   // Construct the new URL with the data
-  const redirectURL = `intent://com.example.e_receipt_app?fileName=${fileName}#Intent;scheme=https;package=com.example.e_receipt_app;end`;
+  const redirectURL = `intent://com.example.e_receipt_app?fileName=${url}${fileName}#Intent;scheme=https;package=com.example.e_receipt_app;end`;
 
   // Redirect the user
   window.location.replace(redirectURL);
-  //window.location.replace("intent://com.example.e_receipt_app#Intent;scheme=https;package=com.example.e_receipt_app;end");
 </script>
