@@ -8,10 +8,10 @@
 
 <script>
   const urlParams = new URLSearchParams(window.location.search);
-  const data = urlParams.get('data');
+  const data = urlParams.get('firebaseURL');
 
   // Construct the new URL with the data
-  const redirectURL = `intent://com.example.e_receipt_app?data=${data}#Intent;scheme=https;package=com.example.e_receipt_app;end`;
+  const redirectURL = `intent://com.example.e_receipt_app?firebaseURL=${data}#Intent;scheme=https;package=com.example.e_receipt_app;end`;
 
   // Redirect the user
   window.location.replace(redirectURL);
