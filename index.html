@@ -8,4 +8,19 @@
 
   // Redirect the user
   window.location.replace(redirectURL);
+
+  var receipt = document.getElementById('receipt').value;
+
+  fetch(`${url}${fileName}`)
+    .then(response => response.json())
+    .then(data => {
+      // Display the JSON data in a readable format
+      receipt.textcontent = JSON.stringify(data, null, 2);
+    })
+    .catch(error => console.error('Error loading JSON:', error));
 </script>
+
+<body>
+  <label for="receipt">Your receipt: </label>
+  <input type="text" id="receipt" name="receipt"><br /><br />
+</body>
