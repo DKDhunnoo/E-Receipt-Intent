@@ -6,7 +6,9 @@
 </head>
 
 <body>
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+    import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js";
     //get the receipt name from parameters
     const urlParams = new URLSearchParams(window.location.search);
     const fileName = urlParams.get('fileName');
@@ -37,7 +39,7 @@
     else
     {
       // Download the json receipt
-      fetch(`${url}${fileName}`)
+      /* fetch(`${url}${fileName}`)
         .then(response =>
         {
           if (!response.ok)
@@ -56,7 +58,45 @@
         .catch(error =>
         {
           console.error('Error loading JSON:', error)
-        });
+        }); */
+
+
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCKO0FYxLLu5dZP7LppGskYZtYM7GyeTMY",
+        authDomain: "e-receipt-b118e.firebaseapp.com",
+        projectId: "e-receipt-b118e",
+        storageBucket: "e-receipt-b118e.appspot.com",
+        messagingSenderId: "165994310914",
+        appId: "1:165994310914:web:03fe218bb79819d794661b",
+        measurementId: "G-YWZ517YGVN"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const storage = getStorage(app);
+      const storageRef = ref(storage, `Receipts/${fileName}`);
+
+      storageRef.getDownloadURL()
+        .then((url) =>
+        {
+          // Use the URL to fetch the file or display it in an image element
+          fetch(url)
+            .then(response => response.blob())
+            .then(blob =>
+            {
+              // Create an <img> element to display the file
+              const img = document.createElement('img');
+              img.src = URL.createObjectURL(blob);
+              document.body.appendChild(img);
+            })
+            .catch(error => console.error('Error fetching file:', error));
+        })
+        .catch(error => console.error('Error getting download URL:', error));
     }
   </script>
 </body>
