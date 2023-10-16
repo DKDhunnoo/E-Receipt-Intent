@@ -17,11 +17,6 @@
     // Construct the new URL with the data
     const redirectURL = `intent://com.example.e_receipt_app?fileName=${url}${fileName}#Intent;scheme=https;package=com.example.e_receipt_app;end`;
 
-    /*     // Display the platform name
-        const displayElement = document.createElement('div');
-        displayElement.textContent = 'Platform: ' + platformName;
-        document.body.appendChild(displayElement); */
-
     //Checks if os is android
     const platformName = navigator.platform;
     const isAndroid = /Android/.test(navigator.userAgent);
@@ -38,28 +33,6 @@
     }
     else
     {
-      // Download the json receipt
-      /* fetch(`${url}${fileName}`)
-        .then(response =>
-        {
-          if (!response.ok)
-          {
-            throw new Error('Network response was not ok');
-          }
-          return response.json(); // Parse response as JSON
-        })
-        .then(data =>
-        {
-          // Display the JSON data in a readable format
-          const displayElement = document.createElement('receipt');
-          displayElement.textContent = JSON.stringify(data, null, 2);;
-          document.body.appendChild(displayElement);
-        })
-        .catch(error =>
-        {
-          console.error('Error loading JSON:', error)
-        }); */
-
       const firebaseConfig = {
         apiKey: "AIzaSyCKO0FYxLLu5dZP7LppGskYZtYM7GyeTMY",
         authDomain: "e-receipt-b118e.firebaseapp.com",
@@ -86,10 +59,9 @@
               // Process and use the JSON data
               console.log('JSON data:', data);
 
-              // Now you can work with the JSON data as needed
-              // For example, display it on the page
-              const jsonOutputDiv = document.getElementById('jsonOutput');
-              jsonOutputDiv.textContent = JSON.stringify(data, null, 2);
+              const displayElement = document.createElement('receipt');
+              displayElement.textContent = JSON.stringify(data, null, 2);;
+              document.body.appendChild(displayElement);
             })
             .catch(error => console.error('Error fetching JSON file:', error));
         })
