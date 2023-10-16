@@ -4,15 +4,18 @@
   const url = "https://storage.googleapis.com/e-receipt-b118e.appspot.com/";
 
   // Construct the new URL with the data
-  const redirectURL = `intent://com.example.e_receipt_app?fileName=${url}${fileName}#Intent;scheme=https;package=com.example.e_receipt_app;S.browser_fallback_url=https://google.com;end`;
+  const redirectURL = `intent://com.example.e_receipt_app?fileName=${url}${fileName}#Intent;scheme=https;package=com.example.e_receipt_app;end`;
   
+  var platform = document.getElementById('platform');
+  platform.textContent = window.navigator.platform;
+
   if(window.navigator.platform == "Android")
   {
-      // Redirect the user to app if on android
+    // Redirect the user to app if on android
     window.location.replace(redirectURL);
   }
-  
-  var receipt = document.getElementById('receipt').value;
+
+  var receipt = document.getElementById('receipt');
 
   fetch(`${url}${fileName}`)
     .then(response => response.json())
@@ -26,4 +29,5 @@
 <body>
   <label for="receipt">Your receipt: </label>
   <input type="text" id="receipt" name="receipt"><br /><br />
+  <input type="text" id="platform" name="platform"><br /><br />
 </body>
