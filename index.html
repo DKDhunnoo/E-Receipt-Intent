@@ -21,10 +21,18 @@
     displayElement.textContent = 'Platform: ' + platformName;
     document.body.appendChild(displayElement);
 
-    if (window.navigator.platform == "Android")
+    const isAndroid = /Android/.test(navigator.userAgent);
+
+    if (isAndroid)
     {
       // Redirect the user to app if on android
       window.location.replace(redirectURL);
+    }
+    else
+    {
+      const displayElement = document.createElement('div1');
+      displayElement.textContent = 'IsAndroid: ' + isAndroid;
+      document.body.appendChild(displayElement);
     }
 
     var receipt = document.getElementById('receipt');
