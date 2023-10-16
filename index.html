@@ -37,7 +37,9 @@
     else
     {
       // Download the json receipt
-      fetch(`${url}${fileName}`)
+      fetch(`${url}${fileName}`, {
+        mode: 'no-cors'
+      })
         .then(response => response.json())
         .then(data =>
         {
