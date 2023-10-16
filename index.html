@@ -60,12 +60,6 @@
           console.error('Error loading JSON:', error)
         }); */
 
-
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
       const firebaseConfig = {
         apiKey: "AIzaSyCKO0FYxLLu5dZP7LppGskYZtYM7GyeTMY",
         authDomain: "e-receipt-b118e.firebaseapp.com",
@@ -79,9 +73,9 @@
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const storage = getStorage(app);
-      const jsonFileRef = ref(storage, `Receipts/${fileName}`);
+      //const jsonFileRef = ref(storage, `Receipts/${fileName}`);
 
-      jsonFileRef.getDownloadURL()
+      getDownloadURL(ref(storage, fileName))
         .then(url =>
         {
           // Fetch the JSON file
