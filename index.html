@@ -7,6 +7,7 @@
 
 <body>
   <script>
+    //get the receipt name from parameters
     const urlParams = new URLSearchParams(window.location.search);
     const fileName = urlParams.get('fileName');
     const url = "https://storage.googleapis.com/e-receipt-b118e.appspot.com/";
@@ -14,14 +15,19 @@
     // Construct the new URL with the data
     const redirectURL = `intent://com.example.e_receipt_app?fileName=${url}${fileName}#Intent;scheme=https;package=com.example.e_receipt_app;end`;
 
+    /*     // Display the platform name
+        const displayElement = document.createElement('div');
+        displayElement.textContent = 'Platform: ' + platformName;
+        document.body.appendChild(displayElement); */
+
+    //Checks if os is android
     const platformName = navigator.platform;
-
-    // Display the platform name
-    const displayElement = document.createElement('div');
-    displayElement.textContent = 'Platform: ' + platformName;
-    document.body.appendChild(displayElement);
-
     const isAndroid = /Android/.test(navigator.userAgent);
+
+    //display isAndroid
+    const displayElement = document.createElement('header');
+    displayElement.textContent = 'IsAndroid: ' + isAndroid;
+    document.body.appendChild(displayElement);
 
     if (isAndroid)
     {
@@ -30,25 +36,19 @@
     }
     else
     {
-      const displayElement = document.createElement('div1');
-      displayElement.textContent = 'IsAndroid: ' + isAndroid;
-      document.body.appendChild(displayElement);
+      // Download the json receipt
+      fetch(`${url}${fileName}`)
+        .then(response => response.json())
+        .then(data =>
+        {
+          // Display the JSON data in a readable format
+          const displayElement = document.createElement('receipt');
+          displayElement.textContent = JSON.stringify(data, null, 2);;
+          document.body.appendChild(displayElement);
+        })
+        .catch(error => console.error('Error loading JSON:', error));
     }
-
-    var receipt = document.getElementById('receipt');
-
-    fetch(`${url}${fileName}`)
-      .then(response => response.json())
-      .then(data =>
-      {
-        // Display the JSON data in a readable format
-        receipt.textcontent = JSON.stringify(data, null, 2);
-      })
-      .catch(error => console.error('Error loading JSON:', error));
   </script>
-
-  <label for="receipt">Your receipt: </label>
-  <input type="text" id="receipt" name="receipt"><br /><br />
 </body>
 
 </html>
