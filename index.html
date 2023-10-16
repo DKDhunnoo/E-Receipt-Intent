@@ -40,7 +40,14 @@
       fetch(`${url}${fileName}`, {
         mode: 'no-cors'
       })
-        .then(response => response.json())
+        .then(response =>
+        {
+          if (!response.ok)
+          {
+            throw new Error('Network response was not ok');
+          }
+          return response.json(); // Parse response as JSON
+        })
         .then(data =>
         {
           // Display the JSON data in a readable format
@@ -48,7 +55,10 @@
           displayElement.textContent = JSON.stringify(data, null, 2);;
           document.body.appendChild(displayElement);
         })
-        .catch(error => console.error('Error loading JSON:', error));
+        .catch(error =>
+        {
+          console.error('Error loading JSON:', error)
+        });
     }
   </script>
 </body>
