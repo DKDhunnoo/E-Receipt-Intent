@@ -6,7 +6,9 @@
 </head>
 
 <body>
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+    import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js";
     //get the receipt name from parameters
     const urlParams = new URLSearchParams(window.location.search);
     const fileName = urlParams.get('fileName');
@@ -37,7 +39,7 @@
     else
     {
       // Download the json receipt
-      fetch(`${url}${fileName}`)
+      /* fetch(`${url}${fileName}`)
         .then(response =>
         {
           if (!response.ok)
@@ -56,7 +58,42 @@
         .catch(error =>
         {
           console.error('Error loading JSON:', error)
-        });
+        }); */
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCKO0FYxLLu5dZP7LppGskYZtYM7GyeTMY",
+        authDomain: "e-receipt-b118e.firebaseapp.com",
+        projectId: "e-receipt-b118e",
+        storageBucket: "e-receipt-b118e.appspot.com",
+        messagingSenderId: "165994310914",
+        appId: "1:165994310914:web:03fe218bb79819d794661b",
+        measurementId: "G-YWZ517YGVN"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const storage = getStorage(app);
+      //const jsonFileRef = ref(storage, `Receipts/${fileName}`);
+
+      getDownloadURL(ref(storage, fileName))
+        .then(url =>
+        {
+          // Fetch the JSON file
+          fetch(url)
+            .then(response => response.json())
+            .then(data =>
+            {
+              // Process and use the JSON data
+              console.log('JSON data:', data);
+
+              // Now you can work with the JSON data as needed
+              // For example, display it on the page
+              const jsonOutputDiv = document.getElementById('jsonOutput');
+              jsonOutputDiv.textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => console.error('Error fetching JSON file:', error));
+        })
+        .catch(error => console.error('Error getting download URL:', error));
     }
   </script>
 </body>
