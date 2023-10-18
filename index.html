@@ -26,9 +26,8 @@
     displayElement.textContent = 'IsAndroid: ' + isAndroid;
     document.body.appendChild(displayElement);
 
-    if (isAndroid)
+    if (isAndroid) //Redirect the user to app if on android
     {
-      // Redirect the user to app if on android
       window.location.replace(redirectURL);
     }
     else
@@ -43,20 +42,19 @@
         measurementId: "G-YWZ517YGVN"
       };
 
-      // Initialize Firebase
+      //Initialize Firebase
       const app = initializeApp(firebaseConfig);
       const storage = getStorage(app);
-      //const jsonFileRef = ref(storage, `Receipts/${fileName}`);
 
       getDownloadURL(ref(storage, fileName))
         .then(url =>
         {
-          // Fetch the JSON file
+          //Fetch the JSON file
           fetch(url)
             .then(response => response.json())
             .then(data =>
             {
-              // Process and use the JSON data
+              //Display the JSON File. **ADD HTML HERE
               console.log('JSON data:', data);
 
               const displayElement = document.createElement('receipt');
